@@ -1,0 +1,27 @@
+<%= form_with model: @note, html: { id: 'note-form' } do |form| %>
+
+  <div id="errors">
+  </div>
+
+  <div class="field">
+    <%= form.label :title, class: :label %>
+    <%= form.text_field :title, class: :input %>
+  </div>
+
+  <div class="field">
+    <%= form.label :body, class: :label %>
+    <%= form.text_area :body, class: :textarea %>
+  </div>
+
+  <div class="field">
+    <%= form.label :color, class: :label %>
+    <div class="select">
+      <%= select_tag 'note[color]', options_for_select(Note::COLORS) %>
+    </div>
+  </div>
+
+  <div class="buttons">
+    <%= form.submit class: :button %>
+  </div>
+
+<% end %>
