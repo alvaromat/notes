@@ -1,9 +1,46 @@
-<section class="section">
-  <h1 class="title">Create a new note</h1>
-  <%= render 'form' %>
-</section>
+<div id="notes-list">
+  <div id="create-note" class="modal" :class="{'is-active': showModal}">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+      <div class="modal-card-head">
+        <p class="modal-card-title">Create a new note</p>
+        <button class="delete" aria-label="close" @click="showModal=false"></button>
+      </div>
+      <div class="modal-card-body">
+        <%= render 'form' %>
+      </div>
+    </div>
+  </div>
 
-<section class="section">
-  <h1 class="title">Notes of <%= current_user.email %></h1>
-  <%= link_to('Logout', destroy_user_session_path, method: :delete) %>
-</section>
+  <section class="section">
+    <div class="level">
+      <h1 class="title">Notes of <%= current_user.email %></h1>
+      <button class="button" @click="showModal=true">Add a note</button>
+    </div>
+
+    <div class="tile is-ancestor">
+      <div class="tile is-4 is-parent" v-for="note in notes" :key="note.id">
+        <article class="tile is-child box" :style="{'background-color': note.color}">
+          <div class="level">
+            <div class="level-item level-left">
+              <p class="subtitle">{{note.title}}</p>
+            </div>
+            <button class="delete" aria-label="close" @click="deleteNote(note)"></button>
+          </div>
+          <p>{{note.body}}</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <%= link_to('Logout', destroy_user_session_path, method: :delete) %>
+  </section>
+</div>
+
+<script type="application/javascript">
+    let notes = <%= raw @notes.to_json %>;
+
+
+</script>
+<%= javascript_pack_tag 'notesList', 'data-turbolinks-track': 'reload' %>
