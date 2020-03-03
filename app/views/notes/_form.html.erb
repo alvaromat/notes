@@ -1,6 +1,9 @@
 <%= form_with model: @note, html: { id: 'note-form' } do |form| %>
 
   <div id="errors">
+    <% unless @note.errors.empty? %>
+    <%= render partial: 'shared/errors', locals: {errors: @note.errors} %>
+    <% end %>
   </div>
 
   <div class="field">

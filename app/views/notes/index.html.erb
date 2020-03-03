@@ -23,9 +23,13 @@
         <article class="tile is-child box" :style="{'background-color': note.color}">
           <div class="level">
             <div class="level-item level-left">
-              <p class="subtitle">{{note.title}}</p>
+              <p class="subtitle">{{note.title}}
+                <a :href="`notes/${note.id}/edit`"> (Edit)</a>
+              </p>
             </div>
-            <button class="delete" aria-label="close" @click="deleteNote(note)"></button>
+            <div class="level level-right">
+              <button class="delete" aria-label="close" @click.stop="deleteNote(note)"></button>
+            </div>
           </div>
           <p>{{note.body}}</p>
         </article>
